@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './WeatherApp.css'
 
 import search_icon from '../Assets/search_icon1.png';
@@ -15,7 +15,11 @@ const WeatherApp = () => {
   let api_key="5e3e5d895b11e97dba2aa65c9b80ed98";
   const [wicon,setWicon]=useState(cloud_icon);
 
+  const [isDay, setIsDay] = useState(true);
+
+
   const search=async()=>{
+   
     const element=document.getElementsByClassName("cityInpput")
     if(element[0].value===""){
       return 0;
@@ -26,7 +30,7 @@ const WeatherApp = () => {
     let response=await fetch(url);
 
     if(!response.ok){
-      //Handle the case where the city is not found or the request fails
+      //Handling case where the city is not found
         const location = document.getElementsByClassName("weather-location");
         location[0].innerHTML = "No Such City Found";
         return;
@@ -46,6 +50,18 @@ const WeatherApp = () => {
     temp[0].innerHTML=data.main.temp+"°C";
     location[0].innerHTML=data.name;
 
+    // if it is night time in city
+    if(data.weather[0].icon.slice(-1)==="n"){
+      setIsDay(false)
+     
+    }
+    else{
+      setIsDay(true)
+     
+    }
+ 
+
+    //for weather icons
     if(data.weather[0].icon==="01d" || data.weather[0].icon==="01n" ) {   //clear sky
 
       setWicon(clear_icon);
@@ -80,12 +96,14 @@ const WeatherApp = () => {
     }
 
 
-
-
-
-
-     
   }
+
+  //to update day-night theme immediately on change
+  useEffect(() => {
+    const container = document.getElementsByClassName("container")[0];
+    container.style.setProperty("--background-gradient", isDay ? "var(--background-gradient-day)" : "var(--background-gradient-night)");
+  }, [isDay]);
+
 
 
   return (

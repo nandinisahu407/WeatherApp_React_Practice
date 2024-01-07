@@ -4,8 +4,9 @@
     margin: auto;
     margin-top: 75px;
     border-radius: 12px;
-    /* background-image: linear-gradient(180deg, #130754 0%,#3b2f80 100%); */
-    background-image: linear-gradient( #253e87,#1B5886, #3776A1, #5293BB,#6EB1D6,#bbe2f4);
+    /* background-image: linear-gradient( #253e87,#1B5886, #3776A1, #5293BB,#6EB1D6,#bbe2f4); */
+    background-image: var(--background-gradient);
+
 
 
 }
@@ -100,3 +101,9 @@
 .icon{
     margin-top: 10px;
 }
+
+:root {
+    --background-gradient: linear-gradient( #253e87,#1B5886, #3776A1, #5293BB,#6EB1D6,#bbe2f4);
+    --background-gradient-day: linear-gradient( #253e87,#1B5886, #3776A1, #5293BB,#6EB1D6,#bbe2f4);
+    --background-gradient-night: linear-gradient(#1a1a2e, #4d4d66, #595980, #6a6a94);
+  }
